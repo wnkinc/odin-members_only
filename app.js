@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", indexRouter);
 
-app.use("/signUp", signUpRouter);
+app.use("/sign-up", signUpRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {

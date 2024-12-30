@@ -54,8 +54,15 @@ const validateGift = [
 ];
 
 async function signUpGET(req, res) {
-  res.render("signUp", {
+  res.render("sign-up", {
     title: "Sign Up",
+    data: {
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
+    }, // Empty fields for initial load
   });
 }
 
