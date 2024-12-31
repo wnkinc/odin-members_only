@@ -65,7 +65,23 @@ async function signUpPOST(req, res) {
   }
 }
 
+async function joinGET(req, res) {
+  res.render("join", { title: "Join Us", errors: [] });
+}
+
+async function joinPOST(req, res) {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.render("join", { title: "Join Us", errors: errors.array() });
+  }
+
+  res.redirect("/login"); // Redirect to a welcome page on success
+}
+
 module.exports = {
   signUpGET,
   signUpPOST,
+  joinGET,
+  joinPOST,
 };

@@ -41,7 +41,21 @@ const validateUser = [
     .withMessage("Passwords do not match."),
 ];
 
+const validatePasscode = [
+  body("passcode")
+    .trim()
+    .notEmpty()
+    .withMessage("Passcode cannot be empty.")
+    .custom((value) => {
+      if (value.toLowerCase() !== "echo") {
+        throw new Error("Incorrect passcode.");
+      }
+      return true;
+    }),
+];
+
 module.exports = {
   validateUser,
+  validatePasscode,
   validationResult,
 };
