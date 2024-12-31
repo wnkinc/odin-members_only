@@ -1,3 +1,4 @@
+// queries.js
 const pool = require("./pool");
 
 async function insertUser(firstName, lastName, username, email, hash, salt) {
@@ -9,8 +10,8 @@ async function insertUser(firstName, lastName, username, email, hash, salt) {
   }
 
   const checkEmail = `
-    SELECT 1 FROM users WHERE username = $1;`;
-  const checkEmailResult = await pool.query(checkEmail, [username]);
+    SELECT 1 FROM users WHERE email = $1;`;
+  const checkEmailResult = await pool.query(checkEmail, [email]);
   if (checkEmailResult.rowCount > 0) {
     throw new Error("Email already taken");
   }

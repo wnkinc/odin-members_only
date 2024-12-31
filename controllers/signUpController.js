@@ -1,6 +1,8 @@
+// signUpController.js
 const db = require("../db/queries");
 const passport = require("../config/passport");
 const genPassword = require("../config/passwordUtils").genPassword;
+const { validationResult } = require("../config/express-validator");
 
 async function signUpGET(req, res) {
   res.render("sign-up", {
@@ -16,7 +18,17 @@ async function signUpGET(req, res) {
 }
 
 async function signUpPOST(req, res) {
+  const errors = validationResult(req);
+
   const { firstName, lastName, username, email, password } = req.body;
+
+  if (!errors.isEmpty()) {
+    return res.render("sign-up", {
+      title: "Sign Up",
+      errors: errors.array(),
+      data: { firstName, lastName, username, email },
+    });
+  }
 
   try {
     // Generate the salt and hash for the password
@@ -35,17 +47,15 @@ async function signUpPOST(req, res) {
         errors: [
           { msg: "Username is already taken, please choose another one." },
         ],
-        data: { firstName, lastName, username, email, password },
+        data: { firstName, lastName, username, email },
       });
     }
 
     if (error.message === "Email already taken") {
       return res.render("sign-up", {
         title: "Sign Up",
-        errors: [
-          { msg: "Username is already taken, please choose another one." },
-        ],
-        data: { firstName, lastName, username, email, password },
+        errors: [{ msg: "Email is already taken, please choose another one." }],
+        data: { firstName, lastName, username, email },
       });
     }
 

@@ -63,6 +63,16 @@
           class="form-input"
         />
 
+        <label for="password" class="form-label">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          value="<%= data ? data.password : '' %>"
+          required
+          class="form-input"
+        />
+
         <button type="submit" class="form-button">Submit</button>
       </form>
     </section>
