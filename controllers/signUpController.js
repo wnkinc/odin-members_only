@@ -1,58 +1,5 @@
 const db = require("../db/queries");
 
-const { body, validationResult } = require("express-validator");
-
-const alphaErr = "must only contain letters.";
-const lengthErr = "must be between 1 and 15 characters.";
-
-const validateUser = [
-  body("username")
-    .trim()
-    .notEmpty()
-    .isAlpha()
-    .withMessage(`Username ${alphaErr}`)
-    .isLength({ min: 1, max: 15 })
-    .withMessage(`Username ${lengthErr}`),
-  body("email")
-    .trim()
-    .notEmpty()
-    .isEmail()
-    .withMessage("Email must be a valid email address.")
-    .normalizeEmail(),
-  body("password")
-    .trim()
-    .notEmpty()
-    .isStrongPassword({
-      minLength: 8,
-      minLowercase: 1,
-      minUppercase: 1,
-      minNumbers: 1,
-      minSymbols: 1,
-      returnScore: false,
-    })
-    .withMessage(
-      "Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, one number, and one symbol."
-    ),
-];
-
-const validateGift = [
-  body("name")
-    .trim()
-    .notEmpty()
-    .isLength({ min: 1, max: 15 })
-    .withMessage(`Gift name ${lengthErr}`),
-  body("description")
-    .trim()
-    .notEmpty()
-    .isLength({ min: 1, max: 100 })
-    .withMessage(`Description must be between 1 and 100 characters.`),
-  body("price")
-    .trim()
-    .notEmpty()
-    .isFloat({ min: 1.0, max: 255.0 })
-    .withMessage("Price must be between 1.00 and 255.00."),
-];
-
 async function signUpGET(req, res) {
   res.render("sign-up", {
     title: "Sign Up",
@@ -66,6 +13,42 @@ async function signUpGET(req, res) {
   });
 }
 
+async function signUpPOST(req, res) {
+  const { firstName, lastName, username, email, password } = req.body;
+
+  try {
+    // Try inserting the user
+    await db.insertUser(firstName, lastName, username, email, password);
+    res.redirect("/");
+  } catch (error) {
+    // Handle the error, e.g., send a response indicating the username is taken
+    if (error.message === "Username already taken") {
+      return res.render("sign-up", {
+        title: "Sign Up",
+        errors: [
+          { msg: "Username is already taken, please choose another one." },
+        ],
+        data: { firstName, lastName, username, email, password },
+      });
+    }
+
+    if (error.message === "Email already taken") {
+      return res.render("sign-up", {
+        title: "Sign Up",
+        errors: [
+          { msg: "Username is already taken, please choose another one." },
+        ],
+        data: { firstName, lastName, username, email, password },
+      });
+    }
+
+    // Handle other errors
+    console.error(error);
+    return res.status(500).json({ error: "An unexpected error occurred." });
+  }
+}
+
 module.exports = {
   signUpGET,
+  signUpPOST,
 };
