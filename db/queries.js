@@ -1,6 +1,6 @@
 const pool = require("./pool");
 
-async function insertUser(firstName, lastName, username, email, password) {
+async function insertUser(firstName, lastName, username, email, hash, salt) {
   const checkUsername = `
     SELECT 1 FROM users WHERE username = $1;`;
   const checkUsernameResult = await pool.query(checkUsername, [username]);
@@ -16,8 +16,8 @@ async function insertUser(firstName, lastName, username, email, password) {
   }
 
   const query = `
-        INSERT INTO users (firstName, lastName, username, email, password)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO users (firstName, lastName, username, email, hash, salt)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING id;
       `;
   const result = await pool.query(query, [
@@ -25,7 +25,8 @@ async function insertUser(firstName, lastName, username, email, password) {
     lastName,
     username,
     email,
-    password,
+    hash,
+    salt,
   ]);
 
   // Return the inserted user ID

@@ -1,4 +1,6 @@
 const db = require("../db/queries");
+const passport = require("../config/passport");
+const genPassword = require("../config/passwordUtils").genPassword;
 
 async function signUpGET(req, res) {
   res.render("sign-up", {
@@ -17,8 +19,13 @@ async function signUpPOST(req, res) {
   const { firstName, lastName, username, email, password } = req.body;
 
   try {
+    // Generate the salt and hash for the password
+    const saltHash = genPassword(password);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
     // Try inserting the user
-    await db.insertUser(firstName, lastName, username, email, password);
+    await db.insertUser(firstName, lastName, username, email, hash, salt);
     res.redirect("/");
   } catch (error) {
     // Handle the error, e.g., send a response indicating the username is taken
