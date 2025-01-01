@@ -5,8 +5,10 @@ const genPassword = require("../config/passwordUtils").genPassword;
 const { validationResult } = require("../config/express-validator");
 
 async function loginGET(req, res) {
+  var titles = req.user ? "Logout" : "Login";
   res.render("login", {
-    title: "Login",
+    title: titles,
+    user: req.user,
     data: {
       username: "",
       password: "",

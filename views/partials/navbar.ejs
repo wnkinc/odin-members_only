@@ -9,10 +9,9 @@
         <a href="/sign-up" class="navbar-link">Sign-Up</a>
       </li>
       <li class="navbar-item">
-        <a href="/logout" class="navbar-link">Logout</a>
-      </li>
-      <li class="navbar-item">
-        <a href="/login" class="navbar-link">Login</a>
+        <a href="/login" class="navbar-link"
+          ><%= user ? "Logout" : "Login" %></a
+        >
       </li>
     </div>
   </ul>

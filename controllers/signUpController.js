@@ -7,6 +7,7 @@ const { validationResult } = require("../config/express-validator");
 async function signUpGET(req, res) {
   res.render("sign-up", {
     title: "Sign Up",
+    user: req.user,
     data: {
       firstName: "",
       lastName: "",
