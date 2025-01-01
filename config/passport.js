@@ -4,8 +4,8 @@ const connection = require("../db/pool");
 const validPassword = require("./passwordUtils").validPassword;
 
 const customFields = {
-  usernameField: "uname",
-  passwordField: "pw",
+  usernameField: "username",
+  passwordField: "password",
 };
 
 const verifyCallback = (username, password, done) => {

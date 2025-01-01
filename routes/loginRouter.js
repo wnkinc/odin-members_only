@@ -2,12 +2,15 @@
 const { Router } = require("express");
 const loginController = require("../controllers/loginController");
 const loginRouter = Router();
-// const {
-//   validateUser,
-//   validatePasscode,
-// } = require("../config/express-validator");
+const passport = require("passport");
 
 loginRouter.get("/", loginController.loginGET);
-// loginRouter.post("/", validateUser, signUpController.signUpPOST);
+loginRouter.post(
+  "/",
+  passport.authenticate("local", {
+    failureRedirect: "../sign-up",
+    successRedirect: "../index",
+  })
+);
 
 module.exports = loginRouter;
