@@ -5,7 +5,6 @@ const loginRouter = Router();
 const passport = require("passport");
 
 loginRouter.get("/", loginController.loginGET);
-
 loginRouter.post(
   "/",
   passport.authenticate("local", {

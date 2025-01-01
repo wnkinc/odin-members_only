@@ -64,6 +64,16 @@ app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/login", loginRouter);
 
+app.post("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).send("Logout failed");
+    }
+
+    res.redirect("/");
+  });
+});
+
 /**
  * -------------- SERVER ----------------
  */
