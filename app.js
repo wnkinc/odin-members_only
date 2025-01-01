@@ -6,6 +6,7 @@ const app = express();
 const path = require("path");
 const signUpRouter = require("./routes/signUpRouter");
 const indexRouter = require("./routes/indexRouter");
+const loginRouter = require("./routes/loginRouter");
 
 const session = require("express-session");
 var passport = require("passport");
@@ -47,7 +48,7 @@ app.use(
  */
 require("./config/passport");
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
@@ -61,6 +62,7 @@ app.use((req, res, next) => {
  */
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
+app.use("/login", loginRouter);
 
 /**
  * -------------- SERVER ----------------

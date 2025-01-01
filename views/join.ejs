@@ -13,17 +13,13 @@
       I speak without a mouth and hear without ears. I have no body, but I come
       alive with wind. What am I?
     </p>
+    <br />
+    <%- include("partials/errors.ejs") %>
     <form action="/join" method="POST">
       <label for="passcode">Enter the Passcode:</label>
       <input type="text" name="passcode" id="passcode" required />
       <button type="submit">Submit</button>
     </form>
-    <% if (errors) { %>
-    <ul>
-      <% errors.forEach(function (error) { %>
-      <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-    <% } %> <%- include('partials/footer.ejs') %>
+    <%- include('partials/footer.ejs') %>
   </body>
 </html>
