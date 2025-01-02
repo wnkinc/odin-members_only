@@ -4,9 +4,11 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
+
 const signUpRouter = require("./routes/signUpRouter");
 const indexRouter = require("./routes/indexRouter");
 const loginRouter = require("./routes/loginRouter");
+const joinRouter = require("./routes/joinRouter");
 
 const session = require("express-session");
 var passport = require("passport");
@@ -62,6 +64,7 @@ app.use((req, res, next) => {
  */
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
+app.use("/join", joinRouter);
 app.use("/login", loginRouter);
 
 app.post("/logout", (req, res) => {

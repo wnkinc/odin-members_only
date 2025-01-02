@@ -47,7 +47,7 @@ const validatePasscode = [
     .notEmpty()
     .withMessage("Passcode cannot be empty.")
     .custom((value) => {
-      if (value.toLowerCase() !== "echo") {
+      if (value.toLowerCase() !== "piano") {
         throw new Error("Incorrect passcode.");
       }
       return true;

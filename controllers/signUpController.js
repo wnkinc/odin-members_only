@@ -53,8 +53,8 @@ async function signUpPOST(req, res) {
         console.error(err);
         return res.status(500).json({ error: "Login failed after sign up." });
       }
-      // Redirect to the home page or dashboard
-      res.redirect("/");
+      // Redirect to the join page or dashboard
+      res.redirect("/join");
     });
   } catch (error) {
     // Handle the error, e.g., send a response indicating the username is taken
@@ -82,23 +82,7 @@ async function signUpPOST(req, res) {
   }
 }
 
-async function joinGET(req, res) {
-  res.render("join", { title: "Join Us", errors: [] });
-}
-
-async function joinPOST(req, res) {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.render("join", { title: "Join Us", errors: errors.array() });
-  }
-
-  res.redirect("/login"); // Redirect to a welcome page on success
-}
-
 module.exports = {
   signUpGET,
   signUpPOST,
-  joinGET,
-  joinPOST,
 };
