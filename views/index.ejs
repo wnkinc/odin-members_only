@@ -9,11 +9,26 @@
     <br />
     <h1><%= title %></h1>
     <br />
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-      voluptatem quasi molestiae autem cum esse magnam, quod, sed vel, quae vero
-      velit similique ex atque nemo quibusdam. Doloribus, beatae ut?
-    </p>
+    <section class="message-list">
+      <% if (messages && messages.length > 0) { %>
+      <ul>
+        <% messages.forEach((message) => { %>
+        <li class="message-item">
+          <h3><%= message.title %></h3>
+          <p><strong>Message:</strong> <%= message.message %></p>
+          <p><strong>Author:</strong> <%= message.author %></p>
+          <p>
+            <strong>Date:</strong> <%= new
+            Date(message.timestamp).toLocaleString() %>
+          </p>
+          <hr />
+        </li>
+        <% }); %>
+      </ul>
+      <% } else { %>
+      <p>No messages available.</p>
+      <% } %>
+    </section>
     <%- include('partials/footer.ejs') %>
   </body>
 </html>

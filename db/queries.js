@@ -80,8 +80,27 @@ async function insertMessage(title, message, userId) {
   return result.rows[0].id;
 }
 
+async function getMessages() {
+  const query = `
+    SELECT 
+      m.title, 
+      m.message, 
+      u.username AS author, 
+      m.timestamp
+    FROM messages m
+    JOIN users u ON m.user_id = u.id
+    ORDER BY m.title ASC;
+  `;
+
+  const result = await pool.query(query);
+
+  // Return the list of messages
+  return result.rows;
+}
+
 module.exports = {
   insertUser,
   grantMembership,
   insertMessage,
+  getMessages,
 };
