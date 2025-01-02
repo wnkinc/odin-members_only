@@ -54,8 +54,18 @@ const validatePasscode = [
     }),
 ];
 
+const validateMessage = [
+  body("message")
+    .trim()
+    .notEmpty()
+    .withMessage("Message cannot be empty.")
+    .isLength({ min: 15, max: 280 })
+    .withMessage("Message must be between 15 and 280 characters."),
+];
+
 module.exports = {
   validateUser,
   validatePasscode,
   validationResult,
+  validateMessage,
 };

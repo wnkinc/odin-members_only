@@ -9,6 +9,7 @@ const signUpRouter = require("./routes/signUpRouter");
 const indexRouter = require("./routes/indexRouter");
 const loginRouter = require("./routes/loginRouter");
 const joinRouter = require("./routes/joinRouter");
+const messageRouter = require("./routes/messageRouter");
 
 const session = require("express-session");
 var passport = require("passport");
@@ -63,10 +64,12 @@ app.use((req, res, next) => {
  * -------------- ROUTES ----------------
  */
 app.use("/", indexRouter);
+
 app.use("/sign-up", signUpRouter);
 app.use("/join", joinRouter);
-app.use("/login", loginRouter);
+app.use("/message", messageRouter);
 
+app.use("/login", loginRouter);
 app.post("/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
