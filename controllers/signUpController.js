@@ -21,7 +21,7 @@ async function signUpGET(req, res) {
 async function signUpPOST(req, res) {
   const errors = validationResult(req);
 
-  const { firstName, lastName, username, email, password } = req.body;
+  const { firstName, lastName, username, email, password, admin } = req.body;
 
   if (!errors.isEmpty()) {
     return res.render("sign-up", {
@@ -45,7 +45,8 @@ async function signUpPOST(req, res) {
       username,
       email,
       hash,
-      salt
+      salt,
+      admin
     );
 
     // Authenticate the user immediately after signup

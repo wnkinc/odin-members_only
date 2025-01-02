@@ -1,7 +1,15 @@
 // queries.js
 const pool = require("./pool");
 
-async function insertUser(firstName, lastName, username, email, hash, salt) {
+async function insertUser(
+  firstName,
+  lastName,
+  username,
+  email,
+  hash,
+  salt,
+  admin
+) {
   const checkUsername = `
     SELECT 1 FROM users WHERE username = $1;`;
   const checkUsernameResult = await pool.query(checkUsername, [username]);
@@ -17,8 +25,8 @@ async function insertUser(firstName, lastName, username, email, hash, salt) {
   }
 
   const query = `
-        INSERT INTO users (firstName, lastName, username, email, hash, salt)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO users (firstName, lastName, username, email, hash, salt, admin)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING id;
       `;
   const result = await pool.query(query, [
@@ -28,6 +36,7 @@ async function insertUser(firstName, lastName, username, email, hash, salt) {
     email,
     hash,
     salt,
+    admin,
   ]);
 
   // Return the inserted user ID
