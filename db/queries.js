@@ -57,7 +57,31 @@ async function grantMembership(userId) {
   return result.rows[0];
 }
 
+// New function to insert a message
+async function insertMessage(title, message, userId) {
+  const checkUserExists = `
+    SELECT 1 FROM users WHERE id = $1;
+  `;
+  const checkUserExistsResult = await pool.query(checkUserExists, [userId]);
+
+  if (checkUserExistsResult.rowCount === 0) {
+    throw new Error("User not found");
+  }
+
+  const query = `
+    INSERT INTO messages (title, message, user_id)
+    VALUES ($1, $2, $3)
+    RETURNING id;
+  `;
+
+  const result = await pool.query(query, [title, message, userId]);
+
+  // Return the inserted message ID
+  return result.rows[0].id;
+}
+
 module.exports = {
   insertUser,
   grantMembership,
+  insertMessage,
 };

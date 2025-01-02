@@ -13,6 +13,16 @@
     <section class="create-message">
       <%- include("partials/errors.ejs") %>
       <form action="/message" method="POST" class="message-form">
+        <label for="title" class="form-label">Title:</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          required
+          class="form-input"
+          value="<%= data ? data.title : '' %>"
+        />
+
         <label for="message" class="form-label">Message:</label>
         <textarea id="message" name="message" required class="form-input">
 <%= data ? data.message : '' %></textarea
