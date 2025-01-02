@@ -1,3 +1,4 @@
+// indexController.js
 const db = require("../db/queries");
 
 async function indexGET(req, res) {
@@ -10,6 +11,15 @@ async function indexGET(req, res) {
   });
 }
 
+async function deletePOST(req, res) {
+  console.log(req.params.id);
+  const messageId = req.params.id;
+
+  await db.deleteMessage(messageId);
+  res.redirect("/");
+}
+
 module.exports = {
   indexGET,
+  deletePOST,
 };

@@ -92,6 +92,7 @@ async function insertMessage(title, message, userId) {
 async function getMessages() {
   const query = `
     SELECT 
+      m.id,
       m.title, 
       m.message, 
       u.username AS author, 
@@ -107,9 +108,26 @@ async function getMessages() {
   return result.rows;
 }
 
+async function deleteMessage(messageId) {
+  const query = `
+  DELETE FROM MESSAGES
+  WHERE ID = $1
+  RETURNING id;
+  `;
+
+  const result = await pool.query(query, [messageId]);
+
+  if (result.rows.length === 0) {
+    throw new Error("Gift not found");
+  }
+
+  return result.rows[0];
+}
+
 module.exports = {
   insertUser,
   grantMembership,
   insertMessage,
   getMessages,
+  deleteMessage,
 };
