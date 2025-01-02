@@ -37,9 +37,25 @@ async function signUpPOST(req, res) {
     const salt = saltHash.salt;
     const hash = saltHash.hash;
 
-    // Try inserting the user
-    await db.insertUser(firstName, lastName, username, email, hash, salt);
-    res.redirect("/");
+    // Insert the user into the database and get their id
+    const userId = await db.insertUser(
+      firstName,
+      lastName,
+      username,
+      email,
+      hash,
+      salt
+    );
+
+    // Authenticate the user immediately after signup
+    req.login({ id: userId, username }, (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Login failed after sign up." });
+      }
+      // Redirect to the home page or dashboard
+      res.redirect("/");
+    });
   } catch (error) {
     // Handle the error, e.g., send a response indicating the username is taken
     if (error.message === "Username already taken") {
