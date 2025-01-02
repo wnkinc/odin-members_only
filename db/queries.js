@@ -34,6 +34,30 @@ async function insertUser(firstName, lastName, username, email, hash, salt) {
   return result.rows[0].id;
 }
 
+async function grantMembership(userId) {
+  const checkUserExists = `
+    SELECT 1 FROM users WHERE id = $1;
+  `;
+  const checkUserExistsResult = await pool.query(checkUserExists, [userId]);
+
+  if (checkUserExistsResult.rowCount === 0) {
+    throw new Error("User not found");
+  }
+
+  const updateMembershipStatus = `
+    UPDATE users
+    SET membership_status = true
+    WHERE id = $1
+    RETURNING id;
+  `;
+
+  const result = await pool.query(updateMembershipStatus, [userId]);
+
+  // Return the updated user object
+  return result.rows[0];
+}
+
 module.exports = {
   insertUser,
+  grantMembership,
 };

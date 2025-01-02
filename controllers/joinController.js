@@ -1,4 +1,5 @@
 // joinController.js
+const db = require("../db/queries");
 const { validationResult } = require("../config/express-validator");
 
 async function joinGET(req, res) {
@@ -16,7 +17,9 @@ async function joinPOST(req, res) {
     });
   }
 
-  res.redirect("/login"); // Redirect to a welcome page on success
+  await db.grantMembership(req.user.id);
+
+  await res.redirect("/login"); // Redirect to a welcome page on success
 }
 
 module.exports = {
