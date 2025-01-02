@@ -16,11 +16,16 @@
         <li class="message-item">
           <h3><%= message.title %></h3>
           <p><strong>Message:</strong> <%= message.message %></p>
+
+          <% if (user && user.membership_status) { %>
+          <!-- Display additional information only if user is logged in -->
           <p><strong>Author:</strong> <%= message.author %></p>
           <p>
             <strong>Date:</strong> <%= new
             Date(message.timestamp).toLocaleString() %>
           </p>
+          <% } %>
+
           <hr />
         </li>
         <% }); %>

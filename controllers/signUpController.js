@@ -26,6 +26,7 @@ async function signUpPOST(req, res) {
   if (!errors.isEmpty()) {
     return res.render("sign-up", {
       title: "Sign Up",
+      user: req.user,
       errors: errors.array(),
       data: { firstName, lastName, username, email },
     });
@@ -61,6 +62,7 @@ async function signUpPOST(req, res) {
     if (error.message === "Username already taken") {
       return res.render("sign-up", {
         title: "Sign Up",
+        user: req.user,
         errors: [
           { msg: "Username is already taken, please choose another one." },
         ],
@@ -71,6 +73,7 @@ async function signUpPOST(req, res) {
     if (error.message === "Email already taken") {
       return res.render("sign-up", {
         title: "Sign Up",
+        user: req.user,
         errors: [{ msg: "Email is already taken, please choose another one." }],
         data: { firstName, lastName, username, email },
       });
