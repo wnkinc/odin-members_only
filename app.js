@@ -37,7 +37,7 @@ app.use(
       tableName: "session", // Default is 'session', customize if needed
       createTableIfMissing: true, // Optionally create the table automatically
     }),
-    secret: process.env.SECRET, // Replace with your own secure secret
+    secret: process.env.SECRET || "fallback-secret",
     resave: false, // Prevents resaving unchanged sessions
     saveUninitialized: true, // Saves uninitialized sessions
     cookie: {
