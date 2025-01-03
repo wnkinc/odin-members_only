@@ -16,8 +16,6 @@ async function messagePOST(req, res) {
 
   const { title, message } = req.body;
 
-  await db.insertMessage(title, message, req.user.id);
-
   if (!errors.isEmpty()) {
     return res.render("message", {
       title: "Create New Message",
@@ -26,6 +24,8 @@ async function messagePOST(req, res) {
       data: { title, message },
     });
   }
+
+  await db.insertMessage(title, message, req.user.id);
 
   await res.redirect("/");
 }

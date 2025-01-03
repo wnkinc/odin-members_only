@@ -3,53 +3,53 @@
 <html>
   <head>
     <title><%= title %></title>
-    <!-- <link rel="stylesheet" href="/styles.css" /> -->
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <%- include('./partials/navbar') %>
-    <br />
-    <h1><%= title %></h1>
-    <br />
-    <section class="message-list">
-      <% if (messages && messages.length > 0) { %>
-      <ul>
-        <% messages.forEach((message) => { %>
-        <li class="message-item">
-          <h3><%= message.title %></h3>
-          <p><strong>Message:</strong> <%= message.message %></p>
-
-          <% if (user && user.membership_status) { %>
-          <!-- Display additional information only if user is logged in -->
-          <p><strong>Author:</strong> <%= message.author %></p>
-          <p>
-            <strong>Date:</strong> <%= new
-            Date(message.timestamp).toLocaleString() %>
-          </p>
-          <% if (user && user.admin) { %>
-          <!-- Show delete button only if user is an admin -->
-          <form
-            action="/<%= message.id %>/delete"
-            method="POST"
-            class="delete-form"
-          >
-            <button
-              type="submit"
-              onclick="return confirm('Are you sure you want to delete this message?');"
-              class="delete-button"
+    <div class="middle">
+      <%- include('./partials/navbar') %>
+      <br />
+      <h1><%= title %></h1>
+      <br />
+      <section class="message-list">
+        <% if (messages && messages.length > 0) { %>
+        <ul>
+          <% messages.forEach((message) => { %>
+          <li class="message-item">
+            <h3><%= message.title %></h3>
+            <p><strong>Message:</strong> <%= message.message %></p>
+            <% if (user && user.membership_status) { %>
+            <!-- Display additional information only if user is logged in -->
+            <p><strong>Author:</strong> <%= message.author %></p>
+            <p>
+              <strong>Date:</strong> <%= new
+              Date(message.timestamp).toLocaleString() %>
+            </p>
+            <% if (user && user.admin) { %>
+            <!-- Show delete button only if user is an admin -->
+            <form
+              action="/<%= message.id %>/delete"
+              method="POST"
+              class="delete-form"
             >
-              Delete
-            </button>
-          </form>
-          <% } %> <% } %>
-
-          <hr />
-        </li>
-        <% }); %>
-      </ul>
-      <% } else { %>
-      <p>No messages available.</p>
-      <% } %>
-    </section>
+              <button
+                type="submit"
+                onclick="return confirm('Are you sure you want to delete this message?');"
+                class="delete-button"
+              >
+                Delete
+              </button>
+            </form>
+            <% } %> <% } %>
+            <hr />
+          </li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <p>No messages available.</p>
+        <% } %>
+      </section>
+    </div>
     <%- include('partials/footer.ejs') %>
   </body>
 </html>

@@ -3,7 +3,7 @@
 <html>
   <head>
     <title><%= title %></title>
-    <!-- <link rel="stylesheet" href="/styles.css" /> -->
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <%- include('./partials/navbar') %>
@@ -24,7 +24,14 @@
         />
 
         <label for="message" class="form-label">Message:</label>
-        <textarea id="message" name="message" required class="form-input">
+        <textarea
+          id="message"
+          name="message"
+          required
+          class="form-input"
+          cols="40"
+          rows="10"
+        >
 <%= data ? data.message : '' %></textarea
         >
         <button type="submit" class="form-button">Submit</button>

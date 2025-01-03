@@ -1,0 +1,273 @@
+/* General Body Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Ensure the middle section takes all available space */
+.middle {
+  flex-grow: 1; /* This allows the middle content to take up available space */
+}
+
+/* Page Title */
+h1 {
+  text-align: center;
+  font-size: 32px;
+  color: #2d3748;
+  margin-top: 15px;
+}
+
+/************ General Navbar Styles ****************/
+.navbar {
+  background-color: #333;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-item {
+  margin: 0 15px;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+  color: #f4a261;
+}
+
+/* Alignment for Left and Right Sections */
+.navLeft {
+  margin-right: auto;
+}
+
+.navRight {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+  .navbar-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-item {
+    margin: 10px 0;
+  }
+
+  .navRight {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/************** Footer Styles ******************/
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+.footer-text {
+  margin: 0;
+}
+
+.footer a {
+  color: #f4a261;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #e76f51;
+}
+
+/************** Message List Section ****************/
+.message-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.message-item {
+  padding: 15px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 15px;
+}
+
+.message-item h3 {
+  font-size: 24px;
+  color: #1a202c;
+}
+
+.message-item p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.message-item strong {
+  font-weight: bold;
+}
+
+/* Button Styles */
+.delete-button {
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #c53030;
+}
+
+.delete-form {
+  display: inline-block;
+}
+
+/* No messages text */
+.message-list p {
+  text-align: center;
+  font-size: 18px;
+  color: #718096;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .message-list {
+    padding: 10px;
+  }
+
+  .message-item h3 {
+    font-size: 20px;
+  }
+
+  .message-item p {
+    font-size: 14px;
+  }
+
+  .delete-button {
+    padding: 6px 12px;
+  }
+}
+
+/***************** Sign-up Form Section ****************/
+.sign-up,
+.login,
+.create-message {
+  max-width: 600px;
+  margin: 0px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 24px;
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 20px;
+}
+
+/* Form Input Styling */
+.form-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-input {
+  width: 96%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-input:focus {
+  border-color: #f4a261;
+  outline: none;
+}
+
+/* Submit Button */
+.form-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2d3748;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #f4a261;
+}
+
+/* Checkbox styling */
+.form-input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+/* Error Message Styling (if errors are passed to the form) */
+.error-item {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sign-up {
+    padding: 15px;
+  }
+
+  .form-input {
+    font-size: 14px;
+  }
+
+  .form-button {
+    font-size: 14px;
+  }
+}
